@@ -468,6 +468,7 @@ function XH_finalCleanUp($html)
 {
     global $errors, $cf, $tx, $bjs;
 
+    $html = XH_beforeFinalCleanUp($html);
     if (XH_ADM === true) {
         $debugHint = '';
         $errorList = '';
@@ -509,7 +510,7 @@ function XH_finalCleanUp($html)
     if (!empty($bjs)) {
         $html = str_replace('</body', "$bjs\n</body", $html);
     }
-
+    $html = XH_afterFinalCleanUp($html);
     return $html;
 }
 
@@ -1664,6 +1665,74 @@ function XH_afterPluginLoading($callback = null)
         foreach ($callbacks as $callback) {
             call_user_func($callback);
         }
+    }
+}
+
+/**
+ * Registers or executes registered callbacks at the start of XH_finalCleanUp().
+ *
+ * Registers a callback for execution at the start of {@link XH_finalCleanUp()},
+ * if <var>$param</var> is a callable; otherwise executes these callbacks,
+ * passing <var>$param</var> as parameter to the callback function. The latter
+ * variant is supposed to be called only by the core, and in this case will
+ * invoke the callback with the page HTML, and expects the callback to return
+ * the possibly modified HTML.
+ *
+ * Note that inside the callbacks the current working directory may have been
+ * changed under some webservers (e.g. Apache), so all filesystem access should
+ * use {@link XH_CWD} prepended to the <var>$pth</var> elements.
+ *
+ * @param mixed $param A parameter.
+ *
+ * @return void
+ *
+ * @since 1.7
+ */
+function XH_beforeFinalCleanUp($param)
+{
+    static $callbacks = array();
+
+    if (is_callable($param)) {
+        $callbacks[] = $param;
+    } else {
+        foreach ($callbacks as $callback) {
+            $param = call_user_func($callback, $param);
+        }
+        return $param;
+    }
+}
+
+/**
+ * Registers or executes registered callbacks at the end of XH_finalCleanUp().
+ *
+ * Registers a callback for execution at the end of {@link XH_finalCleanUp()},
+ * if <var>$param</var> is a callable; otherwise executes these callbacks,
+ * passing <var>$param</var> as parameter to the callback function. The latter
+ * variant is supposed to be called only by the core, and in this case will
+ * invoke the callback with the page HTML, and expects the callback to return
+ * the possibly modified HTML.
+ *
+ * Note that inside the callbacks the current working directory may have been
+ * changed under some webservers (e.g. Apache), so all filesystem access should
+ * use {@link XH_CWD} prepended to the <var>$pth</var> elements.
+ *
+ * @param mixed $param A parameter.
+ *
+ * @return void
+ *
+ * @since 1.7
+ */
+function XH_afterFinalCleanUp($param)
+{
+    static $callbacks = array();
+
+    if (is_callable($param)) {
+        $callbacks[] = $param;
+    } else {
+        foreach ($callbacks as $callback) {
+            $param = call_user_func($callback, $param);
+        }
+        return $param;
     }
 }
 

@@ -268,6 +268,22 @@ class FunctionsTest extends PHPUnit_Framework_TestCase
         unlink($filename);
     }
 
+    public function testBeforeFinalCleanUp()
+    {
+        XH_beforeFinalCleanUp(function ($html) {
+            return 'foo';
+        });
+        $this->assertEquals('foo', XH_beforeFinalCleanUp('bar'));
+    }
+
+    public function testAfterFinalCleanUp()
+    {
+        XH_afterFinalCleanUp(function ($html) {
+            return 'foo';
+        });
+        $this->assertEquals('foo', XH_afterFinalCleanUp('bar'));
+    }
+
     public function dataForTestAdjustStylesheetURLs()
     {
         return array(

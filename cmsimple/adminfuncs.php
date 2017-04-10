@@ -865,10 +865,10 @@ function XH_contentEditor()
         $c[$s] = preg_replace('/<!--XH_ml[1-9]:.*?-->/isu', '', $c[$s]);
     }
     $o .= tag('input type="hidden" name="function" value="save"')
-        . '<textarea name="text" id="text" class="xh-editor" style="height: '
+        . '<div name="text" id="text" class="xh-editor" style="height: '
         . $cf['editor']['height'] . 'px; width: 100%;" rows="30" cols="80">'
-        . XH_hsc($c[$s])
-        . '</textarea>'
+        . $c[$s]
+        . '</div>'
         . '<script type="text/javascript">/* <![CDATA[ */'
         . 'document.getElementById("text").style.height=(' . $cf['editor']['height']
         . ') + "px";/* ]]> */</script>'

@@ -1,5 +1,6 @@
 {
   selector: "%SELECTOR%",
+  inline: true,
   theme: "modern",
   skin: "lightgray",
   toolbar_items_size: "small",
@@ -16,7 +17,7 @@
   image_advtab: true,
   image_title: true,
   file_browser_callback: "%FILEBROWSER_CALLBACK%",
-  content_css: "%STYLESHEET%",
+  //content_css: "%STYLESHEET%",
   importcss_append:true,
 //inserted 30.11.2016  
   style_formats_autohide: true,

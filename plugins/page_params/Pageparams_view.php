@@ -160,9 +160,19 @@ function Pageparams_input($name, $value, $disabled)
  */
 function Pageparams_scheduleInput($name, $value, $disabled)
 {
+    if (strpos($value, 'T') !== false) {
+        list($date, $time) = explode('T', $value);
+    } else {
+        $date = $value;
+        $time = '';
+    }
     $disabled = $disabled ? ' disabled="disabled"' : '';
-    return '<input type="datetime-local" size="16" maxlength="16" name="' . $name . '"'
-        . ' value="' . $value . '"' . $disabled . '>';
+    return '<input type="hidden" name="' . $name . '"'
+        . ' value="' . $value . '">'
+        . '<input type="date" size="10" maxlength="10" id="' . $name . '_date"'
+        . ' value="' . $date . '"' . $disabled . '>'
+        . '<input type="time" size="5" maxlength="5" id="' . $name . '_time"'
+        . ' value="' . $time . '"' . $disabled . '>';
 }
 
 /**
@@ -264,7 +274,7 @@ function Pageparams_view(array $page)
     $view .= "\n\t" . XH_helpIcon($lang['hint_publication_period']);
     $view .= "\n\t\t" . $plugin_tx['page_params']['publication_period'];
     $view .= Pageparams_scheduleInput('publication_date', $page['publication_date'], $page['published'] == '0');
-    $view .= ' - ';
+    $view .= ' – ';
     $view .= Pageparams_scheduleInput('expires', $page['expires'], $page['published'] == '0');
     $view .= '<br>';
     $view .= "\n\t" . '<hr>';

@@ -109,8 +109,8 @@ class ClassicPluginMenu extends PluginMenu
         if (!isset($style['row'])) {
             $style['row'] = 'class="edit" style="width: 100%;"';
         }
-        $template = '<table {{STYLE_ROW}}>' . "\n"
-            . '<tr>' . "\n" . '{{TAB}}</tr>' . "\n" . '</table>' . "\n" . "\n";
+        $template = '<ul {{STYLE_ROW}}>' . "\n"
+            . '{{TAB}}' . '</ul>' . "\n";
 
         $this->menu .= str_replace('{{STYLE_ROW}}', $style['row'], $template);
     }
@@ -134,8 +134,8 @@ class ClassicPluginMenu extends PluginMenu
             $style['link'] = '';
         }
         $tab = strtr(
-            '<td {{STYLE_TAB}}><a {{STYLE_LINK}} href="{{LINK}}"'
-            . ' {{TARGET}}>{{TEXT}}</a></td>' . "\n",
+            '<li {{STYLE_TAB}}><a {{STYLE_LINK}} href="{{LINK}}"'
+            . ' {{TARGET}}>{{TEXT}}</a></li>' . "\n",
             array(
                 '{{STYLE_TAB}}' => $style['tab'],
                 '{{STYLE_LINK}}' => $style['link'],
@@ -161,7 +161,7 @@ class ClassicPluginMenu extends PluginMenu
             $style['data'] = '';
         }
         $data = strtr(
-            '<td {{STYLE_DATA}}>{{TEXT}}</td>' . "\n",
+            '<li {{STYLE_DATA}}>{{TEXT}}</li>' . "\n",
             array(
                 '{{STYLE_DATA}}' => $style['data'],
                 '{{TEXT}}' => $text

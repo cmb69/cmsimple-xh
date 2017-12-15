@@ -41,6 +41,7 @@ $cf['plugins']['hidden']="meta_tags,page_params";
 $cf['uri']['seperator']="/";
 $cf['uri']['word_separator']="-";
 $cf['uri']['length']="200";
+$cf['uri']['clean']="";
 $cf['editmenu']['scroll']="";
 $cf['editmenu']['external']="";
 $cf['title']['format']="{SITE} &ndash; {PAGE}";

@@ -28,6 +28,7 @@ $mcf['menu']['levels']="hidden";
 $mcf['menu']['levelcatch']="hidden";
 $mcf['menu']['sdoc']="enum:,parent";
 $mcf['uri']['length']="hidden";
+$mcf['uri']['clean']="hidden";
 $mcf['editmenu']['scroll']="bool";
 $mcf['editmenu']['external']="xfunction:XH_registeredEditmenuPlugins";
 $mcf['mode']['advanced']="hidden";

@@ -22,11 +22,11 @@
  */
 function XH_renderPrevLink()
 {
-    global $sn, $u;
+    global $sn, $u, $cf;
 
     $index = XH_findPreviousPage();
     if ($index !== false) {
-        return '<link rel="prev" href="' . $sn . '?' . $u[$index] . '">';
+        return '<link rel="prev" href="' . $sn . ($cf['uri']['clean'] ? '' : '?') . $u[$index] . '">';
     } else {
         return '';
     }
@@ -41,11 +41,11 @@ function XH_renderPrevLink()
  */
 function XH_renderNextLink()
 {
-    global $sn, $u;
+    global $sn, $u, $cf;
 
     $index = XH_findNextPage();
     if ($index !== false) {
-        return '<link rel="next" href="' . $sn . '?' . $u[$index] . '">';
+        return '<link rel="next" href="' . $sn . ($cf['uri']['clean'] ? '' : '?') . $u[$index] . '">';
     } else {
         return '';
     }

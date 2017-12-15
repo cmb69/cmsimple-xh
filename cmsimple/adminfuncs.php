@@ -669,7 +669,7 @@ function XH_adminMenu(array $plugins = array())
     $menu = array(
         array(
             'label' => $changeText,
-            'url' => $sn . '?' . $su . '&' . $changeMode,
+            'url' => $sn . ($cf['uri']['clean'] ? '' : '?') . $su . '&' . $changeMode,
         ),
         array(
             'label' => utf8_ucfirst($tx['editmenu']['pagemanager']),

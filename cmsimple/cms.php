@@ -429,7 +429,11 @@ $cgi = (php_sapi_name() == 'cgi' || php_sapi_name() == 'cgi-fcgi');
  *
  * @see CMSIMPLE_URL
  */
-$sn = preg_replace('/([^\?]*)\?.*/', '$1', sv(($iis ? 'SCRIPT_NAME' : 'REQUEST_URI')));
+if ($cf['uri']['clean']) {
+    $sn = preg_replace('/index\.php$/', '', $_SERVER['SCRIPT_NAME']);
+} else {
+    $sn = preg_replace('/([^\?]*)\?.*/', '$1', sv(($iis ? 'SCRIPT_NAME' : 'REQUEST_URI')));
+}
 
 /**
  * The requested plugin administration part.

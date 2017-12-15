@@ -478,6 +478,9 @@ function XH_finalCleanUp($html)
         $html = preg_replace('~<body[^>]*>~i', $replacement, $html, 1);
     }
 
+    if ($cf['uri']['clean']) {
+        $html = str_replace('<head>', '<head><base href="' . CMSIMPLE_URL . '">', $html);
+    }
     if (!empty($bjs)) {
         $html = str_replace('</body', "$bjs\n</body", $html);
     }
@@ -877,12 +880,26 @@ function a($i, $x)
 
     if ($i == 0 && !XH_ADM) {
         if ($x == '' && $cf['locator']['show_homepage'] == 'true') {
-            return '<a href="' . $sn . '?' . $u[0] . '">';
+            if ($cf['uri']['clean']) {
+                return '<a href="' . $sn . $u[0] . '">';
+            } else {
+                return '<a href="' . $sn . '?' . $u[0] . '">';
+            }
         }
     }
-    return isset($u[$i])
-        ? '<a href="' . $sn . '?' . $u[$i] . $x . '">'
-        : '<a href="' . $sn . '?' . $x . '">';
+    if (isset($u[$i])) {
+        if ($cf['uri']['clean']) {
+            return '<a href="' . $sn . $u[$i] . (!empty($x) ? '?' . $x : '') . '">';
+        } else {
+            return '<a href="' . $sn . '?' . $u[$i] . $x . '">';
+        }
+    } else {
+        if ($cf['uri']['clean']) {
+            return '<a href="' . $sn . (!empty($x) ? '?' . $x : '') . '">';
+        } else {
+            return '<a href="' . $sn . '?' . $x . '">';
+        }
+    }
 }
 
 /**
@@ -914,11 +931,11 @@ function meta($n)
  */
 function ml($i)
 {
-    global $f, $sn, $tx;
+    global $f, $sn, $cf, $tx;
 
     $t = '';
     if ($f != $i) {
-        $t .= '<a href="' . $sn . '?&amp;' . $i . '">';
+        $t .= '<a href="' . $sn . ($cf['uri']['clean'] ? '' : '?&amp;') . $i . '">';
     }
     $t .= $tx['menu'][$i];
     if ($f != $i) {
@@ -1781,12 +1798,16 @@ function XH_title($site, $subtitle)
  */
 function XH_builtinTemplate($bodyClass)
 {
-    global $sl, $_XH_csrfProtection, $bjs;
+    global $sl, $cf, $_XH_csrfProtection, $bjs;
 
     echo '<!DOCTYPE html>', "\n", '<html',
         (strlen($sl) == 2 ? " lang=\"$sl\"" : ''), '>', "\n";
     $content = XH_convertPrintUrls(content());
-    echo '<head>', "\n" . head(),
+    echo '<head>', "\n";
+    if ($cf['uri']['clean']) {
+        echo '<base href="' . CMSIMPLE_URL . '">';
+    }
+    echo head(),
         '<meta name="robots" content="noindex">', "\n",
         '</head>', "\n", '<body class="', $bodyClass,'"', onload(), '>', "\n",
         $content, $bjs, '</body>', "\n", '</html>', "\n";
@@ -2696,13 +2717,22 @@ function XH_getPageURL($index)
  */
 function XH_redirectSelectedUrl()
 {
-    global $selected;
+    global $selected, $cf;
 
     $queryString = ltrim(preg_replace('/&?selected=[^&]+/', '', $_SERVER['QUERY_STRING']), '&');
-    if ($queryString) {
-        $queryString = "$selected&$queryString";
+    $path = CMSIMPLE_URL;
+    if ($cf['uri']['clean']) {
+        $path .= $selected;
     } else {
-        $queryString = $selected;
+        if ($queryString) {
+            $queryString = "$selected&$queryString";
+        } else {
+            $queryString = $selected;
+        }
     }
-    return CMSIMPLE_URL . "?$queryString";
+    $result = $path;
+    if ($queryString) {
+        $result .= "?$queryString";
+    }
+    return $result;
 }

@@ -62,6 +62,9 @@ function get_images($directory)
  */
 function get_internal_links($h, $u, $l, $downloads_path)
 {
+    global $xh_publisher;
+
+    $firstPublishedPage = $xh_publisher->getFirstPublishedPage();
     $list = array();
     for ($i = 0; $i < count($h); $i++) {
         $spacer = '';
@@ -72,7 +75,7 @@ function get_internal_links($h, $u, $l, $downloads_path)
         $list[] = array('title' => 
             $spacer . 
             html_entity_decode(addcslashes($h[$i], "\n\r\t\"\\")) ,
-                'value' =>'?' . $u[$i]);
+                'value' => ($i === $firstPublishedPage ? '.' : '?' . $u[$i]));
     }
     if (is_dir($downloads_path)) {
         $list[] = array('title' => 'DOWNLOADS:' , 'value' => " ");

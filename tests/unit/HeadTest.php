@@ -49,7 +49,7 @@ class HeadTest extends TestCase
      */
     protected function setUp()
     {
-        global $pth, $cf, $tx;
+        global $pth, $cf, $tx, $xh_publisher;
 
         $this->setConstant('CMSIMPLE_XH_VERSION', 'CMSimple_XH 1.6.3');
         $this->setConstant('CMSIMPLE_XH_BUILD', '2014081201');
@@ -71,6 +71,8 @@ class HeadTest extends TestCase
         $this->pluginsMock->expects($this->any())->willReturn(array());
         $this->pluginStylesheetMock = $this->createFunctionMock('XH_pluginStylesheet');
         $this->pluginStylesheetMock->expects($this->once());
+        $xh_publisher = $this->createMock(Publisher::class);
+        $xh_publisher->method('getFirstPublishedPage')->willReturn(0);
     }
 
     /**
@@ -166,7 +168,7 @@ class HeadTest extends TestCase
         $findPreviousPageMock = $this->createFunctionMock('XH_findPreviousPage');
         $findPreviousPageMock->expects($this->any())->willReturn(0);
         $this->assertXPath(
-            '//link[@rel="prev" and @href="/xh/?Welcome"]',
+            '//link[@rel="prev" and @href="/xh/"]',
             head()
         );
         $findPreviousPageMock->restore();
@@ -186,7 +188,7 @@ class HeadTest extends TestCase
         $findNextPageMock = $this->createFunctionMock('XH_findNextPage');
         $findNextPageMock->expects($this->any())->willReturn(0);
         $this->assertXPath(
-            '//link[@rel="next" and @href="/xh/?Welcome"]',
+            '//link[@rel="next" and @href="/xh/"]',
             head()
         );
         $findNextPageMock->restore();

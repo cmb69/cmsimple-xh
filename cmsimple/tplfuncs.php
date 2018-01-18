@@ -319,10 +319,12 @@ function mailformlink()
  */
 function loginlink()
 {
-    global $s, $tx;
+    global $s, $tx, $xh_publisher, $u;
 
     if (!XH_ADM) {
-        return a($s > -1 ? $s : 0, '&amp;login" rel="nofollow')
+        $index = $s > -1 ? $s : 0;
+        $extra = ($index === $xh_publisher->getFirstPublishedPage() ? $u[$index] : '');
+        return a($index, $extra . '&amp;login" rel="nofollow')
             . $tx['menu']['login'] . '</a>';
     }
 }

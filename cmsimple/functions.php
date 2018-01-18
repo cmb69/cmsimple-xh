@@ -873,9 +873,9 @@ function XH_findNextPage()
  */
 function a($i, $x)
 {
-    global $sn, $u;
+    global $sn, $u, $xh_publisher;
 
-    return isset($u[$i])
+    return isset($u[$i]) && (XH_ADM || $i !== $xh_publisher->getFirstPublishedPage())
         ? '<a href="' . $sn . '?' . $u[$i] . $x . '">'
         : '<a href="' . $sn . ($x ? '?' . $x : '') . '">';
 }
@@ -2684,9 +2684,13 @@ function XH_getLocatorModel()
  */
 function XH_getPageURL($index)
 {
-    global $sn, $u;
+    global $sn, $u, $xh_publisher;
 
-    return $sn . '?' . $u[$index];
+    if ($index === $xh_publisher->getFirstPublishedPage()) {
+        return $sn;
+    } else {
+        return $sn . '?' . $u[$index];
+    }
 }
 
 /**

@@ -1004,6 +1004,13 @@ $l = null;
 
 rfc(); // Here content is loaded
 
+if (!XH_ADM && $s === $xh_publisher->getFirstPublishedPage()) {
+    $temp = preg_replace('/^' . preg_quote($su, '/') . '/', '', $_SERVER['QUERY_STRING']);
+    $temp = CMSIMPLE_URL . ($temp ? '?' : '') . $temp;
+    header("Location: $temp", true, 301);
+    exit;
+}
+
 $_XH_controller->setFrontendF();
 
 if (is_readable($pth['folder']['cmsimple'] . 'userfuncs.php')) {

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdocumentor
+        configVersion="3"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="https://www.phpdoc.org"
+        xsi:noNamespaceSchemaLocation="https://docs.phpdoc.org/latest/phpdoc.xsd"
+>
+    <title>CMSimple_XH</title>
+    <paths>
+        <output>doc/php</output>
+        <cache>doc/cache</cache>
+    </paths>
+    <version number="3.0.0">
+        <api>
+            <source dsn=".">
+                <path>cmsimple</path>
+            </source>
+        </api>
+        <guide>
+            <source dsn=".">
+                <path>tutorials</path>
+            </source>
+            <output>guide</output>
+        </guide>
+    </version>
+    <setting name="guides.enabled" value="true"/>
+    <!-- <setting name="graphs.enabled" value="true"/> -->
+    <template name="default"/>
+</phpdocumentor>

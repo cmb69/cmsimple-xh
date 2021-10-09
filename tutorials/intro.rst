@@ -1,15 +1,13 @@
-# Developer Documentation for CMSimple_XH
-
-[TOC]
-
-# Introduction {#intro}
+Introduction
+============
 
 This documentation is meant for core and plugin developers as well
 as template designers. It documents the core and the standard
 plugins which are not developed externally (currently Filebrowser,
 Meta_tags and Page_params).
         
-# System Architecture {#architecture}
+System Architecture
+-------------------
 
 All requests to the website are directed to index.php in the root
 folder of the installation or to index.php in a language folder.
@@ -17,7 +15,8 @@ These index.php files are just thin wrappers for including
 {@link cms.php} which defines variables and constants and
 includes necessary files according to the individual request.
 
-## Plugins {#plugins}
+Plugins
+-------
 
 Plugins are handled by the "plugin loader". This term stems from
 the past, where it was an external component that had to be
@@ -45,9 +44,10 @@ plugins have been loaded, use {@link XH_afterPluginLoading} to
 register an appropriate callback.
 
 More developer information about plugins can be found in the
-[Wiki](http://www.cmsimple-xh.org/wiki/doku.php/developers_manual).
+`Wiki <https://www.cmsimple-xh.org/wiki/doku.php/developers_manual>`_.
 
-## Templates {#templates}
+Templates
+---------
 
 At the end of usual page requests the file template.htm of the
 active template is included. That is an HTML file with embedded
@@ -55,9 +55,10 @@ PHP, the so-called template tags, which are defined in
 {@link tplfuncs.php}.
 
 More developer information about templates can be found in the
-[Wiki](http://www.cmsimple-xh.org/wiki/doku.php/developers_manual).
+`Wiki <https://www.cmsimple-xh.org/wiki/doku.php/developers_manual>`_.
 
-# API {#api}
+API
+---
 
 An important part of the API of CMSimple_XH consists of global
 variables which are documented in {@link cms.php}. Not all global
@@ -65,6 +66,6 @@ variables are part of the public API, only those tagged as public.
 Furthermore many of the public variables should be treated as
 read-only or read-write as documented.
 
-\warning
-All parameter names of functions and methods are subject to change,
-and none of the CMSimple\_XH APIs should be called using named arguments for now.
+.. warning::
+    All parameter names of functions and methods are subject to change,
+    and none of the CMSimple\_XH APIs should be called using named arguments for now.

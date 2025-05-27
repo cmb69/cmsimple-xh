@@ -166,6 +166,7 @@
         <unzip file="CMSimple_XH-${version}.zip" todir="current"/>
         <unzip file="${patchee}" todir="patchee"/>
         <mkdir dir="dist"/>
+        <echo msg="here"/>
         <copy todir="dist">
             <fileset dir="current">
                 <different targetdir="patchee" ignoreFileTimes="true"/>

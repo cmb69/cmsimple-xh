@@ -47,7 +47,7 @@ jobs:
         run: |
           mkdir artifacts
           mv CMSimple_XH-${{github.event.inputs.version}}.zip artifacts
-          if [-f CMSimple_XH-${{github.event.inputs.version}}-patch.zip]; then
+          if [ -f CMSimple_XH-${{github.event.inputs.version}}-patch.zip ]; then
             mv CMSimple_XH-${{github.event.inputs.version}}-patch.zip artifacts
           fi
       - name: Upload artifacts

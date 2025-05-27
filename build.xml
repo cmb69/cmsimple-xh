@@ -165,6 +165,7 @@
         <fail unless="version" message="version is not defined!"/>
         <unzip file="CMSimple_XH-${version}.zip" todir="current"/>
         <unzip file="${patchee}" todir="patchee"/>
+        <mkdir dir="dist"/>
         <copy todir="dist">
             <fileset dir="current">
                 <different targetdir="patchee" ignoreFileTimes="true"/>

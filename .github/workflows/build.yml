@@ -41,7 +41,6 @@ jobs:
       - if: github.event.inputs.patchee != ''
         name: Build patch
         run: |
-          mkdir dist
           PATH=vendor/bin:$PATH phing build-patch -Dversion=${{github.event.inputs.version}} -Dpatchee=CMSimple_XH-${{github.event.inputs.patchee}}.zip
       - name: Move build to artifacts folder
         run: |

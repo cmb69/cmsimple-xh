@@ -40,7 +40,9 @@ jobs:
           curl -fsSL -o CMSimple_XH-${{github.event.inputs.patchee}}.zip https://github.com/cmsimple-xh/cmsimple-xh/releases/download/${{github.event.inputs.patchee-tag || github.event.inputs.patchee}}/CMSimple_XH-${{github.event.inputs.patchee}}.zip
       - if: github.event.inputs.patchee != ''
         name: Build patch
-        run: PATH=vendor/bin:$PATH phing build-patch -Dversion=${{github.event.inputs.version}} -Dpatchee=CMSimple_XH-${{github.event.inputs.patchee}}.zip
+        run: |
+          mkdir dist
+          PATH=vendor/bin:$PATH phing build-patch -Dversion=${{github.event.inputs.version}} -Dpatchee=CMSimple_XH-${{github.event.inputs.patchee}}.zip
       - name: Move build to artifacts folder
         run: |
           mkdir artifacts
